@@ -40,6 +40,67 @@ public class Heap {
         }
     }
 
+    public Integer pop(){
+        if (heapArray == null){
+            return null;
+        } else {
+            Integer return_data, popped_idx, child_left_idx, child_right_idx;
+            return_data = heapArray.get(1);
+            heapArray.set(1,heapArray.get(heapArray.size() - 1));
+            heapArray.remove(heapArray.size() - 1);
+            popped_idx = 1;
+            while(move_down(popped_idx)){
+                child_left_idx = popped_idx * 2;
+                child_right_idx = popped_idx * 2 + 1;
+                // CASE 2 : 왼쪽 노드만 존재
+                if (heapArray.size() <= child_right_idx) {
+                    Collections.swap(heapArray,popped_idx,child_left_idx);
+                }
+                // CASE 3 : 오른쪽 노드만 존재
+                else {
+                    if (heapArray.get(child_right_idx) >= heapArray.get(popped_idx)){
+                        Collections.swap(heapArray,popped_idx,child_right_idx);
+                    } else {
+                        Collections.swap(heapArray,popped_idx,child_left_idx);
+                    }
+                }
+            }
+            return return_data;
+        }
+    }
+
+    public boolean move_down(Integer parent_idx){
+        if (heapArray == null) {
+            return false;
+        } else {
+            Integer left_child_idx = parent_idx * 2;
+            Integer right_child_idx = parent_idx * 2 + 1;
+            // CASE 1 : 하나도 없을 경우 (leaf Node)
+            if (heapArray.size() <= left_child_idx) {
+                return false;
+            }
+            // CASE 2 : 왼쪽 노드만 있을 경우
+            else if (heapArray.size() <= right_child_idx) {
+                if (heapArray.get(left_child_idx) >= heapArray.get(parent_idx)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            // CASE 3 : 양쪽 다 있을 경우
+            else {
+                if (heapArray.get(right_child_idx) >= heapArray.get(parent_idx)){
+                    return true;
+                } else if (heapArray.get(left_child_idx) >= heapArray.get(parent_idx)){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Heap heapTest = new Heap(15);
         heapTest.insert(10);
@@ -47,7 +108,22 @@ public class Heap {
         heapTest.insert(5);
         heapTest.insert(4);
         heapTest.insert(20);
+        System.out.println(heapTest.heapArray);
 
+        System.out.println(heapTest.pop());
+        System.out.println(heapTest.heapArray);
+
+        System.out.println(heapTest.pop());
+        System.out.println(heapTest.heapArray);
+
+        System.out.println(heapTest.pop());
+        System.out.println(heapTest.heapArray);
+
+        System.out.println(heapTest.pop());
+        System.out.println(heapTest.heapArray);
+        System.out.println(heapTest.pop());
+        System.out.println(heapTest.heapArray);
+        System.out.println(heapTest.pop());
         System.out.println(heapTest.heapArray);
     }
 }
