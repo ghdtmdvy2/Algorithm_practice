@@ -1,3 +1,5 @@
+package data_structure;
+
 public class DoubleLinkedList<T> {
     Node<T> head = null;
     Node<T> tail = null;

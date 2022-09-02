@@ -1,3 +1,5 @@
+package data_structure;
+
 public class SingleLinkedList <T> {
     private Node<T> head = null;
     public class Node<T>{

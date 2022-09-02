@@ -1,3 +1,4 @@
+package data_structure;
 
 public class MyTree {
     Node head = null;

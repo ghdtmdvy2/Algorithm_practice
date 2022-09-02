@@ -1,3 +1,5 @@
+package data_structure;
+
 public class MyHashTable {
     Slot MyHashTable[];
     MyHashTable(int size){

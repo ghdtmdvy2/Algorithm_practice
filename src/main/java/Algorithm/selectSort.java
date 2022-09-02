@@ -1,7 +1,9 @@
+package Algorithm;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class insertSort {
+public class selectSort {
     public static void main(String[] args) {
         ArrayList<Integer> arrayList = new ArrayList<>();
 
@@ -9,13 +11,11 @@ public class insertSort {
             arrayList.add((int)(Math.random() * 100));
         }
 
-        for (int i = 0; i < 100; i++){
-            for (int j = i; j > 0; j--){
-                if (arrayList.get(j) > arrayList.get(j-1)){
-                    Collections.swap(arrayList,j,j-1);
-                    continue;
+        for (int i = 0; i < arrayList.size(); i++){
+            for (int j = i + 1; j < arrayList.size(); j++){
+                if (arrayList.get(i) < arrayList.get(j)){
+                    Collections.swap(arrayList,i,j);
                 }
-                break;
             }
         }
         for (int i = 0; i < 100; i++){

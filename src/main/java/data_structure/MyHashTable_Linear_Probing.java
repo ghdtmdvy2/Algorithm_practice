@@ -1,3 +1,5 @@
+package data_structure;
+
 public class MyHashTable_Linear_Probing {
     public Slot[] hashTable;
 
