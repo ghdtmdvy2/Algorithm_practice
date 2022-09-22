@@ -20,12 +20,7 @@ public class Edge_sort_Comparable {
         // 그래서 정렬 기준을 정하고자 두가지 방법이 있음 Comparator, Comparable
         // 1. Comparable 클래스 안에 interface 를 정의하여 오버라이드 하는 경우.
         // 2. Comparator Arrays.sort 메서드에서 두 번째 파라미터로 객체 생성하여 오버라이드 하는 경우.
-        Arrays.sort(Edge, new Comparator<Edge_sort_Comparable>() {
-            @Override
-            public int compare(Edge_sort_Comparable o1, Edge_sort_Comparable o2) {
-                return o1.distance - o2.distance;
-            }
-        });
+        Arrays.sort(Edge, (o1, o2) -> o1.distance - o2.distance);
         for (int i = 0; i<Edge.length; i++){
             System.out.println(Edge[i].distance);
         }
