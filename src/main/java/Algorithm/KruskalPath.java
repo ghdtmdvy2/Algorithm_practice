@@ -1,34 +1,41 @@
 package Algorithm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class Kruskal {
+public class KruskalPath {
     // 부모 노드를 알려주는 것
     // 첫번째가 자식 노드, 두번째가 부모 노드라고 전재
     public static HashMap<String, String> parent = new HashMap<>();
     // 자신의 노드가 rank 가 몇인지.
     public static HashMap<String, Integer> rank = new HashMap<>();
 
-    public static ArrayList<Edge> KruskalFuc(ArrayList<String> vertices, ArrayList<Edge> edges){
+    public ArrayList<Edge> KruskalFuc(ArrayList<String> vertices, ArrayList<Edge> edges){
         ArrayList<Edge> mst = new ArrayList<>();
         Edge currentEdge;
-        // 초기값 설정.
+        // makeSet 메서드를 통해 초기값 설정.
         for (int i = 0; i < vertices.size(); i++){
             makeSet(vertices.get(i));
         }
-        // edges 를 정렬
+        // edges 를 정렬 -> Comparable 상속 받아 가중치로 정렬 기준으로 가져왔기 때문에 sort 로 정렬이 가능함.
         Collections.sort(edges);
         for (int i = 0; i < edges.size(); i++){
+            // 현재 Edge 를 가져옴.
             currentEdge = edges.get(i);
-            // 사이클 확인
-            if (find(currentEdge.nodeU) != find(currentEdge.nodeV))
-            union(currentEdge.nodeV, currentEdge.nodeU);
-            mst.add(currentEdge);
+            // 사이클 확인 하는 부분
+            // 만약에 같은 경우( 루트 노드가 같은 경우 ) 사이클이 존재하기 때문에 mst 에 add를 해주지 않음.
+            if (find(currentEdge.nodeU) != find(currentEdge.nodeV)) {
+                // 루트 노드가 같지 않기 때문에 ( == 사이클이 돌지 않기 때문에 ) 트리를 합쳐줌.
+                union(currentEdge.nodeV, currentEdge.nodeU);
+                // 결과값을 저장.
+                mst.add(currentEdge);
+            }
         }
+        return mst;
     }
-    public class Edge implements Comparable<Edge> {
+    public static class Edge implements Comparable<Edge> {
         // 가중치
         Integer weight;
         // 첫번째 노드
@@ -91,5 +98,35 @@ public class Kruskal {
         }
         // 부모 노드를 반환.
         return parent.get(node);
+    }
+
+    public static void main(String[] args) {
+        ArrayList<String> vertices = new ArrayList<String>(Arrays.asList("A", "B", "C", "D", "E", "F", "G"));
+        ArrayList<Edge> edges = new ArrayList<Edge>();
+        edges.add(new Edge(7, "A", "B"));
+        edges.add(new Edge(5, "A", "D"));
+        edges.add(new Edge(7, "B", "A"));
+        edges.add(new Edge(8, "B", "C"));
+        edges.add(new Edge(9, "B", "D"));
+        edges.add(new Edge(7, "B", "E"));
+        edges.add(new Edge(8, "C", "B"));
+        edges.add(new Edge(5, "C", "E"));
+        edges.add(new Edge(5, "D", "A"));
+        edges.add(new Edge(9, "D", "B"));
+        edges.add(new Edge(7, "D", "E"));
+        edges.add(new Edge(6, "D", "F"));
+        edges.add(new Edge(7, "E", "B"));
+        edges.add(new Edge(5, "E", "C"));
+        edges.add(new Edge(7, "E", "D"));
+        edges.add(new Edge(8, "E", "F"));
+        edges.add(new Edge(9, "E", "G"));
+        edges.add(new Edge(6, "F", "D"));
+        edges.add(new Edge(8, "F", "E"));
+        edges.add(new Edge(11, "F", "G"));
+        edges.add(new Edge(9, "G", "E"));
+        edges.add(new Edge(11, "G", "F"));
+        KruskalPath kObject = new KruskalPath();
+        System.out.println(kObject.KruskalFuc(vertices,edges));
+
     }
 }
