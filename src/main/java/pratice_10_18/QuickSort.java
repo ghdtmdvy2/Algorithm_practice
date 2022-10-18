@@ -2,51 +2,37 @@ package pratice_10_18;
 
 import java.util.ArrayList;
 
+import static Algorithm.QuickSort.Sort;
+
 public class QuickSort {
-    public static ArrayList<Integer> mergeFunc(ArrayList<Integer> arrayList){
-        if(arrayList.size() <= 1){
+    public static ArrayList<Integer> quickFunc(ArrayList<Integer> arrayList){
+        if (arrayList.size() <= 1){
             return arrayList;
         }
-        int size = arrayList.size() / 2;
-
-        ArrayList<Integer> rightList = mergeFunc(new ArrayList<>(arrayList.subList(0,size)));
-        ArrayList<Integer> leftList = mergeFunc(new ArrayList<>(arrayList.subList(size+1,arrayList.size())));
-
-        return mergeList(rightList,leftList);
-    }
-    public static ArrayList<Integer> mergeList(ArrayList<Integer> rightList, ArrayList<Integer> leftList){
-        ArrayList<Integer> mergeList = new ArrayList<>();
-        int rightSize = 0;
-        int leftSize = 0;
-        while(rightList.size() > rightSize && leftList.size() > leftSize){
-            if(rightList.get(rightSize) > leftList.get(leftSize)){
-                mergeList.add(leftList.get(leftSize));
-                leftSize++;
-            }
-            else {
-                mergeList.add(rightList.get(rightSize));
-                rightSize++;
+        int pivot = arrayList.get(0);
+        ArrayList<Integer> quickList = new ArrayList<>();
+        ArrayList<Integer> rightList = new ArrayList<>();
+        ArrayList<Integer> leftList = new ArrayList<>();
+        for (int i = 1; i <arrayList.size(); i++){
+            if(pivot < arrayList.get(i)){
+                rightList.add(arrayList.get(i));
+            }else {
+                leftList.add(arrayList.get(i));
             }
         }
-        while(rightList.size() > rightSize){
-            mergeList.add(rightList.get(rightSize));
-            rightSize++;
-        }
-        while(leftList.size() > leftSize){
-            mergeList.add(leftList.get(leftSize));
-            leftSize++;
-        }
-        return mergeList;
-
+        quickList.addAll(Sort(leftList));
+        quickList.add(pivot);
+        quickList.addAll(Sort(rightList));
+        return quickList;
     }
     public static void main(String[] args) {
         ArrayList<Integer> arrayList = new ArrayList<>();
         for (int i = 0; i < 100; i++){
             arrayList.add((int)(Math.random() * 100));
         }
-        ArrayList<Integer> mergeList = mergeFunc(arrayList);
-        for (int i = 0; i<mergeList.size(); i++){
-            System.out.println(mergeList.get(i));
+        ArrayList<Integer> quickList = quickFunc(arrayList);
+        for (int i = 0; i<quickList.size(); i++){
+            System.out.println(quickList.get(i));
         }
     }
 }
