@@ -27,8 +27,8 @@ public class GreedyAlgorithm {
             }
             // 2. 무게를 분할하여 넣는 경우
             else {
-                // (무게/가치)를 해주어 1 무게당 가치가 얼만큼 들어가는 지 알려줌
-                // 남은 용량을 곱해주어 가치를 저장
+                // (무게/가치)를 해주어 몇 퍼센트까지(비율) 들어갈지 알려준다.
+                // 용량과 비율을 곱해주어 가치를 저장
                 fraction = capacity / objectList[i][0];
                 totalValue += objectList[i][1] * fraction;
 
