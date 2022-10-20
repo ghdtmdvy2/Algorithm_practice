@@ -24,7 +24,7 @@ public class DijkStarPath {
         Integer currentDistance, adjacentDistance;
         ArrayList<Edge> adjacentNode;
         // 1. 첫 초기 값으로 startNode 제외하고 inf(무한대) 값 넣어주기
-        // distances 변수는 특정 노드에 대한 최소 거리를 알려주는 결과값이다.
+        // distances 변수는 startNode 로부터 최소 가중치(최소 거리)를 저장하는 변수 값이다.
         HashMap<String, Integer> distances = new HashMap<>();
         // 1-1 startNode 제외하고 inf 에 넣기 위해서 모든 값들을 다 무한대로 넣어줌.
         for (String key : graph.keySet()){
@@ -33,6 +33,7 @@ public class DijkStarPath {
         // 1-1. 첫 초기 값 넣어주기.
         distances.put(startNode,0);
         // 2. 처음 시작하는 것 우선순위 큐에 넣기.
+        // 현재 가장 짧은 거리를 가진 노드 정보를 위해서 우선 순위 큐에 넣어줌.
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
         priorityQueue.add(new Edge(0,startNode));
 

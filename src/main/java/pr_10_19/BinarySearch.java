@@ -1,4 +1,4 @@
-package Algorithm.pr_10_19;
+package pr_10_19;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,7 +1,6 @@
-package Algorithm.pr_10_19;
+package pr_10_19;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class GreedyAlgorithm {
     public void knapsackFunc(Integer[][] objectList, double capacity){
