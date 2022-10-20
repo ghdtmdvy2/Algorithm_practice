@@ -7,55 +7,45 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-public class DijkStarPath {
-    public static class Edge implements Comparable<Edge>{
-        String vertex;
+public class DijkStarPath_2 {
+    public static class Edge implements Comparable<Edge> {
         Integer distance;
-
+        String vertex;
         Edge(Integer distance, String vertex){
-            this.vertex = vertex;
             this.distance = distance;
+            this.vertex = vertex;
         }
-
-
         @Override
-        public int compareTo(Edge o) {
-            return this.distance - o.distance;
-        }
-
-        @Override
-        public String toString() {
-            return "Edge{" +
-                    "vertex='" + vertex + '\'' +
-                    ", distance=" + distance +
-                    '}';
+        public int compareTo(Edge edge){
+            return this.distance - edge.distance;
         }
     }
-    public static HashMap<String, Integer> DijkStarFunc (HashMap<String, ArrayList<Edge>> graph, String startVertex){
-        HashMap<String, Integer> distance = new HashMap<>();
+    public static HashMap<String, Integer> DijkStarFunc(HashMap<String,ArrayList<Edge>> graph, String startVertex){
         Edge adjacentEdge;
-        String adjacentVertex, currentVertex;
-        Integer adjacentDistance, currentDistance;
+        String currentVertex, adjacentVertex;
+        Integer currentDistance, adjacentDistance;
+        HashMap<String, Integer> distance = new HashMap<>();
         for (String key : graph.keySet()){
             distance.put(key,Integer.MAX_VALUE);
         }
-        distance.put(startVertex,0);
+        distance.put(startVertex, 0);
+
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>();
-        priorityQueue.add(new Edge(0,startVertex));
-        while (priorityQueue.size() > 0){
+        priorityQueue.add(new Edge(0, startVertex));
+        while( priorityQueue.size() > 0 ){
             Edge edge = priorityQueue.poll();
             currentVertex = edge.vertex;
             currentDistance = edge.distance;
-            if (currentDistance > distance.get(currentVertex)){
+            if (distance.get(currentVertex) < currentDistance){
                 continue;
             }
-            for (int i = 0; i < graph.get(currentVertex).size(); i++){
+            for(int i = 0; i<graph.get(currentVertex).size(); i++){
                 adjacentEdge = graph.get(currentVertex).get(i);
                 adjacentVertex = adjacentEdge.vertex;
                 adjacentDistance = adjacentEdge.distance + currentDistance;
-                if (distance.get(adjacentVertex) > adjacentDistance){
-                    priorityQueue.add(new Edge(adjacentDistance,adjacentVertex));
+                if (adjacentDistance < distance.get(adjacentVertex)){
                     distance.put(adjacentVertex,adjacentDistance);
+                    priorityQueue.add(new Edge(adjacentDistance, adjacentVertex));
                 }
             }
         }
@@ -71,6 +61,4 @@ public class DijkStarPath {
         graph.put("F", new ArrayList<Edge>(Arrays.asList(new Edge(5, "A"))));
         System.out.println(DijkStarFunc(graph,"A"));
     }
-
-
 }
