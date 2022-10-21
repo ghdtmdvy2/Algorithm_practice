@@ -81,7 +81,7 @@ public class KruskalPath {
         } else {
             parent.put(root1,root2);
             if (rank.get(root1) == rank.get(root2)){
-                rank.put(root2, rank.get(root2) + 1);
+                rank.put(root1, rank.get(root1) + 1);
             }
         }
     }
@@ -94,6 +94,7 @@ public class KruskalPath {
         if (parent.get(node) != node){
             // 재귀 함수를 통해 부모 노드의 rank 를 줄여주는 용도.
             // 즉 path compression 을 해주는 곳.
+            // 해당하는 node 의 부모 노드로 업데이트를 시켜준다.
             parent.put(node,find(parent.get(node)));
         }
         // 부모 노드를 반환.
