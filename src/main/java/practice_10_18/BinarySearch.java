@@ -1,7 +1,6 @@
-package pratice_10_18;
+package practice_10_18;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class BinarySearch {

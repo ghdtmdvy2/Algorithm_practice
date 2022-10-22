@@ -1,16 +1,16 @@
-package pratice_10_18;
+package practice_10_18;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class BFS {
-    public static ArrayList<String> BFS_search(HashMap<String,ArrayList<String>> graph, String startNode){
+public class DFS {
+    public static ArrayList<String> DFSSearch(HashMap<String, ArrayList<String>> graph,String startNode){
         ArrayList<String> visitedNode = new ArrayList<>();
         ArrayList<String> needVisit = new ArrayList<>();
         needVisit.add(startNode);
-        while (needVisit.size() > 0){
-            String node = needVisit.remove(0);
+        while(needVisit.size() > 0){
+            String node = needVisit.remove(needVisit.size() - 1);
             if (!visitedNode.contains(node)){
                 visitedNode.add(node);
                 needVisit.addAll(graph.get(node));
@@ -20,7 +20,6 @@ public class BFS {
     }
     public static void main(String[] args) {
         HashMap<String, ArrayList<String>> graph = new HashMap<String, ArrayList<String>>();
-
         graph.put("A", new ArrayList<String>(Arrays.asList("B", "C")));
         graph.put("B", new ArrayList<String>(Arrays.asList("A", "D")));
         graph.put("C", new ArrayList<String>(Arrays.asList("A", "G", "H", "I")));
@@ -32,6 +31,6 @@ public class BFS {
         graph.put("I", new ArrayList<String>(Arrays.asList("C", "J")));
         graph.put("J", new ArrayList<String>(Arrays.asList("I")));
 
-        System.out.println(BFS_search(graph,"A"));
+        System.out.println(DFSSearch(graph,"A"));
     }
 }

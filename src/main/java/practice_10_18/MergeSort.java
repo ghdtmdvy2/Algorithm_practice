@@ -1,42 +1,43 @@
-package pratice_10_17;
+package practice_10_18;
 
 import java.util.ArrayList;
 
 public class MergeSort {
     public static ArrayList<Integer> mergeFunc(ArrayList<Integer> arrayList){
-        if (arrayList.size() <= 1){
+        if(arrayList.size() <= 1){
             return arrayList;
         }
         int size = arrayList.size() / 2;
 
-        ArrayList<Integer> rightList = mergeFunc((new ArrayList<>(arrayList.subList(0,size))));
-        ArrayList<Integer> leftList = mergeFunc((new ArrayList<>(arrayList.subList(size,arrayList.size()))));
+        ArrayList<Integer> rightList = mergeFunc(new ArrayList<>(arrayList.subList(0,size)));
+        ArrayList<Integer> leftList = mergeFunc(new ArrayList<>(arrayList.subList(size+1,arrayList.size())));
 
-        return listCompare(leftList,rightList);
+        return mergeList(rightList,leftList);
     }
-    public static ArrayList<Integer> listCompare(ArrayList<Integer> leftList, ArrayList<Integer> rightList){
+    public static ArrayList<Integer> mergeList(ArrayList<Integer> rightList, ArrayList<Integer> leftList){
         ArrayList<Integer> mergeList = new ArrayList<>();
-        int leftSize = 0;
         int rightSize = 0;
-        while (leftList.size() > leftSize && rightList.size() > rightSize){
-            if (leftList.get(leftSize) > rightList.get(rightSize)){
-                mergeList.add(rightList.get(rightSize));
-                rightSize++;
-            }
-            else {
+        int leftSize = 0;
+        while(rightList.size() > rightSize && leftList.size() > leftSize){
+            if(rightList.get(rightSize) > leftList.get(leftSize)){
                 mergeList.add(leftList.get(leftSize));
                 leftSize++;
             }
-        }
-        while(leftList.size() > leftSize){
-            mergeList.add(leftList.get(leftSize));
-            leftSize++;
+            else {
+                mergeList.add(rightList.get(rightSize));
+                rightSize++;
+            }
         }
         while(rightList.size() > rightSize){
             mergeList.add(rightList.get(rightSize));
             rightSize++;
         }
+        while(leftList.size() > leftSize){
+            mergeList.add(leftList.get(leftSize));
+            leftSize++;
+        }
         return mergeList;
+
     }
     public static void main(String[] args) {
         ArrayList<Integer> arrayList = new ArrayList<>();

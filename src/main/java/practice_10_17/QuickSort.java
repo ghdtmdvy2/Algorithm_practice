@@ -1,4 +1,4 @@
-package pratice_10_17;
+package practice_10_17;
 
 import java.util.ArrayList;
 

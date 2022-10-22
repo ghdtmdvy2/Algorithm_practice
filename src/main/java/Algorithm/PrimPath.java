@@ -1,5 +1,7 @@
 package Algorithm;
 
+import pr_10_21.KruskalPath;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -27,7 +29,7 @@ public class PrimPath {
         @Override
         public String toString() {
             return "Edge{" +
-                    "weight=" + weight +
+                    "distance=" + weight +
                     ", node1='" + node1 + '\'' +
                     ", node2='" + node2 + '\'' +
                     '}';
@@ -50,20 +52,17 @@ public class PrimPath {
             // A 라는 Key에 Value가 비어있고, B 라는 Key에 Value가 비어있고, C 라는 Key에 Value가 비어있는 것이다.
             if(!adjacentEdges.containsKey(currentEdge.node1)){
                 adjacentEdges.put(currentEdge.node1, new ArrayList<>());
+
             }
+            // 이 부분은 해당 존재하는 노드에서의 인접한 리스트들의 value 값을 모두다 저장하는 곳. <- value 값을 저장하는 곳.
+            adjacentEdges.get(currentEdge.node1).add(new Edge(currentEdge.weight,currentEdge.node1,currentEdge.node2));
             if(!adjacentEdges.containsKey(currentEdge.node2)){
                 adjacentEdges.put(currentEdge.node2, new ArrayList<>());
             }
+            // 이 부분은 해당 존재하는 노드에서의 인접한 리스트들의 value 값을 모두다 저장하는 곳. <- value 값을 저장하는 곳.
+            adjacentEdges.get(currentEdge.node2).add(new Edge(currentEdge.weight,currentEdge.node1,currentEdge.node2));
         }
-        // 이 부분은 해당 존재하는 노드에서의 인접한 리스트들의 value 값을 모두다 저장하는 곳. <- value 값을 저장하는 곳.
-        for (int i = 0; i<edges.size(); i++){
-            currentEdge = edges.get(i);
-            currentEdgeList = adjacentEdges.get(currentEdge.node1);
-            // node1(첫번째 파라미터)은 자기 노드, node2(두번째 파라미터)는 자기와 연결된 노드라고 생각해야한다.
-            currentEdgeList.add(new Edge(currentEdge.weight, currentEdge.node1, currentEdge.node2));
-            currentEdgeList = adjacentEdges.get(currentEdge.node2);
-            currentEdgeList.add(new Edge(currentEdge.weight, currentEdge.node2, currentEdge.node1));
-        }
+
         // 알고리즘 시작
         // connectedNodes 는 탐색 하는 곳 ( key 값 가져오는 부분 )
         // 해당 key 값 초기화 한 것을 가져오는 곳.
@@ -101,19 +100,30 @@ public class PrimPath {
     }
 
     public static void main(String[] args) {
-        ArrayList<Edge> myedges = new ArrayList<Edge>();
-        myedges.add(new Edge(7, "A", "B"));
-        myedges.add(new Edge(5, "A", "D"));
-        myedges.add(new Edge(8, "B", "C"));
-        myedges.add(new Edge(9, "B", "D"));
-        myedges.add(new Edge(7, "D", "E"));
-        myedges.add(new Edge(5, "C", "E"));
-        myedges.add(new Edge(7, "B", "E"));
-        myedges.add(new Edge(6, "D", "F"));
-        myedges.add(new Edge(8, "E", "F"));
-        myedges.add(new Edge(9, "E", "G"));
-        myedges.add(new Edge(11, "F", "G"));
+        ArrayList<Edge> edges = new ArrayList<Edge>();
+        edges.add(new Edge(7, "A", "B"));
+        edges.add(new Edge(5, "A", "D"));
+        edges.add(new Edge(7, "B", "A"));
+        edges.add(new Edge(8, "B", "C"));
+        edges.add(new Edge(9, "B", "D"));
+        edges.add(new Edge(7, "B", "E"));
+        edges.add(new Edge(8, "C", "B"));
+        edges.add(new Edge(5, "C", "E"));
+        edges.add(new Edge(5, "D", "A"));
+        edges.add(new Edge(9, "D", "B"));
+        edges.add(new Edge(7, "D", "E"));
+        edges.add(new Edge(6, "D", "F"));
+        edges.add(new Edge(7, "E", "B"));
+        edges.add(new Edge(5, "E", "C"));
+        edges.add(new Edge(7, "E", "D"));
+        edges.add(new Edge(8, "E", "F"));
+        edges.add(new Edge(9, "E", "G"));
+        edges.add(new Edge(6, "F", "D"));
+        edges.add(new Edge(8, "F", "E"));
+        edges.add(new Edge(11, "F", "G"));
+        edges.add(new Edge(9, "G", "E"));
+        edges.add(new Edge(11, "G", "F"));
         PrimPath pObject = new PrimPath();
-        System.out.println(pObject.primFunc("A", myedges));
+        System.out.println(pObject.primFunc("A", edges));
     }
 }
