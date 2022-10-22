@@ -60,7 +60,7 @@ public class PrimPath {
                 adjacentEdges.put(currentEdge.node2, new ArrayList<>());
             }
             // 이 부분은 해당 존재하는 노드에서의 인접한 리스트들의 value 값을 모두다 저장하는 곳. <- value 값을 저장하는 곳.
-            adjacentEdges.get(currentEdge.node2).add(new Edge(currentEdge.weight,currentEdge.node1,currentEdge.node2));
+            adjacentEdges.get(currentEdge.node2).add(new Edge(currentEdge.weight,currentEdge.node2,currentEdge.node1));
         }
 
         // 알고리즘 시작
@@ -80,9 +80,11 @@ public class PrimPath {
         while(priorityQueue.size() > 0){
             poppedEdge = priorityQueue.poll();
             // 현재 연결 된(node2)를 가져와 이 노드가 결과 값에(mst[최소신장트리])에 포함 되어있는 지 확인.
+            // 현재 탐색 중인 노드와 정말 연결 된 노드인지 확인하는 구문.
             if (!connectedNodes.contains(poppedEdge.node2)) {
-                // 결과 값에(mst[최소신장트리]) 포함되어 있지 않다면 추가.
+                // 연결 된 노드라고 저장(표시).
                 connectedNodes.add(poppedEdge.node2);
+                // 결과 값에(mst[최소신장트리]) 에 저장.
                 mst.add(new Edge(poppedEdge.weight, poppedEdge.node1,poppedEdge.node2));
                 // 연결된 노드들을 다시 새로 갱신 해야하기 때문에 인접한 노드들을 우선순위 큐에 넣어줌.
                 adjacentEdgeNodes = adjacentEdges.getOrDefault(poppedEdge.node2,new ArrayList<>());
