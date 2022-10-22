@@ -37,7 +37,7 @@ public class PrimPath {
     }
     public ArrayList<Edge> primFunc(String startNode, ArrayList<Edge> edges) {
         Edge currentEdge, poppedEdge, adjacentEdgeNode;
-        ArrayList<Edge> currentEdgeList, candidateEdgeList, adjacentEdgeNodes;
+        ArrayList<Edge> candidateEdgeList, adjacentEdgeNodes;
         PriorityQueue<Edge> priorityQueue;
 
         ArrayList<String> connectedNodes = new ArrayList<String>();
