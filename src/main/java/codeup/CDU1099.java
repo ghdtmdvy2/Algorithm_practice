@@ -1,7 +1,7 @@
 package codeup;
 
 import java.util.Scanner;
-
+// https://codeup.kr/problem.php?id=1099
 public class CDU1099 {
     public static void main(String args[]){
         Scanner sc = new Scanner(System.in);
