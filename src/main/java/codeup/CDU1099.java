@@ -1,5 +1,6 @@
 package codeup;
 
+import java.util.Arrays;
 import java.util.Scanner;
 // https://codeup.kr/problem.php?id=1099
 public class CDU1099 {
@@ -13,6 +14,7 @@ public class CDU1099 {
                 matrix[i][j] = sc.nextInt();
             }
         }
+
         int rowAnt = 2;
         int columnAnt = 2;
         matrix[2][2] = 9;
