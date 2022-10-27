@@ -4,7 +4,7 @@ package BOJ;
 import java.util.*;
 
 class BOJ1920{
-    public static int binarySearch(ArrayList<Integer> arrayList, Integer searchItem){
+    public static int binarySearch(List<Integer> arrayList, int searchItem){
         if(arrayList.size() == 1 && arrayList.get(0) == searchItem){
             return 1;
         }
@@ -19,9 +19,9 @@ class BOJ1920{
             return 1;
         }
         if (arrayList.get(midSize) > searchItem){
-            return binarySearch(new ArrayList<>(arrayList.subList(0,midSize)),searchItem);
+            return binarySearch(arrayList.subList(0,midSize), searchItem);
         } else {
-            return binarySearch(new ArrayList<>(arrayList.subList(midSize,arrayList.size())),searchItem);
+            return binarySearch(arrayList.subList(midSize,arrayList.size()),searchItem);
         }
     }
     public static void main(String[] args) {
