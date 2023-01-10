@@ -29,6 +29,7 @@ public class BOJ10799 {
             // 막대기 길이 고정
             else {
                 if (s[i].equals(")")){
+                    stack.pop();
                     bridge--;
                 }
             }
