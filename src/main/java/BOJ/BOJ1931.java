@@ -5,36 +5,47 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class BOJ1931 {
-    static int v[];
-    static int ans = 0;
-    public static boolean possible(int row) {
-        for (int i = 1; i<row; i++){
-            if (v[i] == v[row]) {
-                return false;
-            }
-            if (Math.abs(row - i) == Math.abs(v[i] - v[row])) {
-                return false;
-            }
+    static class Coference implements Comparable<Coference>{
+        int start;
+        int end;
+        Coference(int start, int end){
+            this.start = start;
+            this.end = end;
         }
-        return true;
-    }
-    public static void n_queen(int depth, int N){
-        if (depth > N){
-            ans++;
-            return;
-        }
-        for (int i = 1; i<=N; i++){
-            v[depth] = i;
-            if (possible(depth)){
-                n_queen(depth+1, N);
+        public int compareTo(Coference o){
+            if (this.end == o.end) {
+                if (this.start > o.start) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+            else if (this.end < o.end){
+                return -1;
+            } else {
+                return 1;
             }
         }
     }
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        v = new int[N+1];
-        n_queen(1,N);
+        PriorityQueue<Coference> pq = new PriorityQueue<>();
+        for (int i = 0; i<N; i++){
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            pq.add(new Coference(start, end));
+        }
+        int ans = 0;
+        int prev = 0;
+        while(!pq.isEmpty()){
+            Coference cf = pq.poll();
+            if (cf.start >= prev) {
+                ans++;
+                prev = cf.end;
+            }
+        }
         System.out.println(ans);
     }
 }
